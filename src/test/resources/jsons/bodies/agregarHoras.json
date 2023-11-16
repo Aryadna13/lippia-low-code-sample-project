@@ -1,0 +1,25 @@
+{
+  "billable": true,
+  "customAttributes": [
+    {
+      "name": "CrearNuevotimeentry",
+      "namespace": "namespace de que?",
+      "value": "13"
+    }
+  ],
+  "customFields": [
+    {
+      "customFieldId": "string",
+      "sourceType": "WORKSPACE",
+      "value": {}
+    }
+  ],
+  "description": "descripcion de como agrego un time entry",
+  "end": "2019-08-24T14:15:22Z",
+  "projectId": "654d556bc7d58825171d9c2f",
+  "start": "2019-08-24T14:15:22Z",
+  "tagIds": [
+    null
+  ],
+  "taskId": null
+}

@@ -1,0 +1,25 @@
+{
+  "billable": true,
+  "customAttributes": [
+    {
+      "name": "PracticoFinal",
+      "namespace": "string",
+      "value": "string"
+    }
+  ],
+  "customFields": [
+    {
+      "customFieldId": "string",
+      "sourceType": "TIMEENTRY",
+      "value": {}
+    }
+  ],
+  "description": "cambio de horas",
+  "end": "2023-11-10T20:50:13Z",
+  "projectId": "654d556bc7d58825171d9c2f",
+  "start": "2023-11-10T12:00:00Z",
+  "tagIds": [
+    null
+  ],
+  "taskId": null
+}
