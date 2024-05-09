@@ -1,0 +1,25 @@
+{
+  "color": "#000000",
+  "duration": "60000",
+  "id": "5b641568b07987035750505e",
+  "memberships": [
+    {
+      "costRate": {
+        "amount": 10500,
+        "currency": "USD"
+      },
+      "hourlyRate": {
+        "amount": 10500,
+        "currency": "USD"
+      },
+      "membershipStatus": "PENDING",
+      "membershipType": "PROJECT",
+      "targetId": "64c777ddd3fcab07cfbb210c",
+      "userId": "5a0ab5acb07987125438b60f"
+    }
+  ],
+  "name": "Software Development",
+  "note": "This is a sample note for the project.",
+  "public": true,
+  "workspaceId": "64a687e29ae1f428e7ebe303"
+}
