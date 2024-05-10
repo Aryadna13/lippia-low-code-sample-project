@@ -1,5 +1,5 @@
 @Regresion @Workspace
-Feature: Projects
+Feature: Workspace
 
   Background:
     And header Content-Type = application/json
@@ -21,3 +21,4 @@ Feature: Projects
     And body Workspace/bodyWorkspace.json
     When execute method POST
     Then the status code should be 201
+
