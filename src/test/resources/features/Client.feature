@@ -1,5 +1,5 @@
-@Regresion @Client
-Feature: Projects
+@Regresion @Client @Success
+Feature: Client
 
   Background:
     And header Content-Type = application/json
@@ -9,15 +9,14 @@ Feature: Projects
 
 
   @GetFindClients
-  Scenario: Get mis clientess
+  Scenario: Find clients on workspace
     Given call Workspace.feature@GetWokspacesExitoso
     And endpoint /v1/workspaces/{{workspaceId}}/clients
     When execute method GET
     Then the status code should be 200
 
-
   @PostAddClients
-  Scenario: Get mis clientes
+  Scenario: Add a new client
     Given call Workspace.feature@GetWokspacesExitoso
     And endpoint /v1/workspaces/{{workspaceId}}/clients
     And body Client/AddClient.json

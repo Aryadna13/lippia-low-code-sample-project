@@ -97,7 +97,7 @@ Feature: Task
 
   @REVISARHARDCODEO
   Scenario: sin api key
-    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/663d389b0a3b3a2da28500a1
+    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     When execute method PUT
     Then the status code should be 401
 
@@ -105,7 +105,7 @@ Feature: Task
 
   Scenario: NAME en blanco
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/663d389b0a3b3a2da28500a1
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     And body Task/PostNewTaskFail.json
     When execute method PUT
     Then the status code should be 400
@@ -113,7 +113,7 @@ Feature: Task
 
   Scenario: NAME repetido
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/663d389b0a3b3a2da28500a1
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     And body Task/AddNewTask.json
     When execute method PUT
     Then the status code should be 400
@@ -122,7 +122,7 @@ Feature: Task
     #------------------------------------------------
 
   @DeleteTask
-
+@FAIL
   Scenario: error de endpoint
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
@@ -142,7 +142,7 @@ Feature: Task
 
 
   Scenario: status "ACTIVE" en vez de "DONE"
-    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/663d389b0a3b3a2da28500a1
+    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     And body Task/AddNewTask.json
     When execute method DELETE
     Then the status code should be 400
