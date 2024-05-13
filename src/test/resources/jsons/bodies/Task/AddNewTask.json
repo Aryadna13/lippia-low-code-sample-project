@@ -1,4 +1,8 @@
 {
-  "name": "Prueba",
-  "status": "Active"
+  "budgetEstimate": 10000,
+  "estimate": "PT1H30M",
+  "id": "57a687e29ae1f428e7ebe107",
+  "name": "PruebaPorLippiaLowCode",
+  "status": "DONE",
+  "statusEnum": "ACTIVE"
 }

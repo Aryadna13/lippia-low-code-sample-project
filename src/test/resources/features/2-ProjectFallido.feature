@@ -1,126 +1,116 @@
-@Regresion @project
-Feature: Projects
+@Regression @Project @ProjectFailed @Failed
+Feature: Project Failed
 
   Background:
     And header Content-Type = application/json
     And header Accept = */*
     And base url https://api.clockify.me/api
-    And call Workspace.feature@GetWokspacesExitoso
-    And call Project.feature@GetAllProjectsExitoso
+    And call 1-Workspace.feature@GetWokspaces
+    And call 2-Project.feature@GetAllProjects
 
 
-  @GetAllProjectsExitoso
-
-
-  Scenario: endpoint errado
+  @GetAllProjects @BadEndpoint
+  Scenario: Get all projects on workspace
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/
     When execute method GET
     Then the status code should be 404
 
-
-  Scenario: metodo errado
+  @GetAllProjects @BadMethod
+  Scenario: Get all projects on workspace
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects
     When execute method PUT
     Then the status code should be 405
 
-
-  Scenario: sin api key
+  @GetAllProjects @NoApiKey
+  Scenario: Get all projects on workspace
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
     When execute method GET
     Then the status code should be 401
 
-    #-----------------------------------
+    #-----------------------------------3
 
-
-    #--------------------------------
-  @PostProject
-
-  Scenario: error de endpoint
+  @PostProject @BadEndpoint
+  Scenario: Add a new project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/
     And body Project/NewprojectBody.json
     When execute method POST
     Then the status code should be 404
 
-
-  Scenario: metodo errado
+  @PostProject @BadMethod
+  Scenario: Add a new project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects
-    And body Project/NewprojectBody.json
     When execute method PUT
     Then the status code should be 405
 
-
-  Scenario: no apikey
+  @PostProject @NoApiKey
+  Scenario: Add a new project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
-    And body Project/NewprojectBody.json
     When execute method POST
     Then the status code should be 401
 
-
-  Scenario: name repetido
+  @PostProject @RepeatedProjectName
+  Scenario: Add a new project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects
-    And body Project/NewprojectBody.json
+    And body Project/NewProjectBody.json
     When execute method POST
     Then the status code should be 400
 
-
-  Scenario: name vacio
+  @PostProject @EmptyProjecttName
+  Scenario: Add a new project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects
     And body Project/NewProyectBodyFail.json
     When execute method POST
     Then the status code should be 400
 
-
 #----------------------------
 
-  @FindProjectById
-  Scenario: error de endpoint
+  @FindProjectById @BadEndpoint
+  Scenario: Find project by ID
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1
     And body Project/FindById.json
     When execute method GET
     Then the status code should be 404
 
-  Scenario: metodo errado
+  @FindProjectById @BadMethod
+  Scenario: Find project by ID
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     And body Project/FindById.json
     When execute method POST
     Then the status code should be 405
 
-
-  Scenario: no api key
+  @FindProjectById @NoApiKey
+  Scenario: Find project by ID
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     And body Project/FindById.json
     When execute method GET
     Then the status code should be 401
 
-
-
-
   #------------------------------
 
-  @DeleteProject @fail
-  Scenario: error de endpoint
+  @DeleteProject @BadEndpoint
+  Scenario: Delete project from workspace
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/
     When execute method DELETE
     Then the status code should be 404
 
-  @fail
-  Scenario: borrar proyecto a Archivado
+  @DeleteProject @BadMethod
+  Scenario: Delete project from workspace
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     When execute method POST
     Then the status code should be 405
 
-  @fail
-  Scenario: no apikey
+  @DeleteProject @NoApiKey
+  Scenario: Delete project from workspace
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     When execute method DELETE
     Then the status code should be 401

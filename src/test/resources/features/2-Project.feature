@@ -1,50 +1,50 @@
-@Regresion @project
-Feature: Projects
+@Regression @Project @ProjectSuccess @Success
+Feature: Project success
 
   Background:
     And header Content-Type = application/json
     And header Accept = */*
     And header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And base url https://api.clockify.me/api
-    And call Workspace.feature@GetWokspacesExitoso
+    And call 1-Workspace.feature@GetWokspaces
 
 
-  @GetAllProjectsExitoso @okFijo
-  Scenario: llamar a todos los proyectos
+  @GetAllProjects
+  Scenario: Get all projects on workspace
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
     When execute method GET
     Then the status code should be 200
     * define projectId = $.[0].id
 
-  @GetProjectExitoso
-  Scenario: consultar un proyecto
-    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    When execute method GET
-    Then the status code should be 200
-
   @PostProject
-  Scenario: Añadir un nuevo proyecto
+  Scenario: Add a new project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
     And body Project/NewprojectBody.json
     When execute method POST
     Then the status code should be 201
 
-  @FindProjectByIdExitoso @okFijo
-  Scenario: Update project to Archivado
+  @GetProject
+  Scenario: Get a project on workspace
+    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
+    When execute method GET
+    Then the status code should be 200
+
+  @FindProjectById
+  Scenario: Find project by ID
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     And body Project/FindById.json
     When execute method GET
     Then the status code should be 200
 
-  @UpdateProject @okFijo
+  @UpdateProject
   Scenario: Update proyecto
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     And body Project/ActualizarProject.json
     When execute method PUT
     Then the status code should be 200
 
-  @DeleteProject @okFijo
-  Scenario: borrar proyecto a Archivado
+  @DeleteProject
+  Scenario: Delete project from workspace
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     When execute method DELETE
     Then the status code should be 200

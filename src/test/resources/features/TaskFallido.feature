@@ -1,148 +1,145 @@
-@Regresion @Task
-Feature: Task
+@Regression @Task @TaskFailed @Failed
+Feature: Task Failed
 
   Background:
     And header Content-Type = application/json
     And header Accept = */*
     And base url https://api.clockify.me/api
-    And call Workspace.feature@GetWokspacesExitoso
-    And call Project.feature@GetAllProjectsExitoso
+    And call 1-Workspace.feature@GetWokspaces
+    And call 2-Project.feature@GetAllProject
     And call Task.feature@GetAllTasks
 
 
-  @GetAllTasksFallido
-  Scenario: error de endpoint
+  @GetAllTasks @BadEndpoint
+  Scenario: Get all my Tasks
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/
     When execute method GET
     Then the status code should be 404
 
-  Scenario: metodo errado
+  @GetAllTasks @BadMethod
+  Scenario: Get all my Tasks
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
     When execute method PATCH
     Then the status code should be 405
 
-  Scenario: sin api key
+  @GetAllTasks @NoApiKey
+  Scenario: Get all my Tasks
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
     When execute method GET
     Then the status code should be 401
 
-  Scenario: sin proyectoID
+  @GetAllTasks @NoProjectId
+  Scenario: Get all my Tasks
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
+    And endpoint /v1/workspaces/{{workspaceId}}/projects//tasks
     When execute method GET
     Then the status code should be 400
 
 #--------------------------------------
 
-  @PostAddANewTaskFail
-  Scenario: error de endpoint
+  @PostAddANewTaskFail @BadEndpoint
+  Scenario: Add a new task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/
     And body Task/AddNewTask.json
     When execute method POST
     Then the status code should be 404
 
-
-  Scenario: metodo errado
+  @PostAddANewTaskFail @BadMethod
+  Scenario: Add a new task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
     And body Task/AddNewTask.json
     When execute method PATCH
     Then the status code should be 405
 
-
-  Scenario: sin apikey
-   Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
+  @PostAddANewTaskFail @NoApiKey
+  Scenario: Add a new task on project
+    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
     When execute method POST
     Then the status code should be 401
 
-
-  Scenario: sin projectid
+  @PostAddANewTaskFail @NoProjectId
+  Scenario: Add a new task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects//tasks
     When execute method POST
     Then the status code should be 405
 
-
-  Scenario: sin name
+  @PostAddANewTaskFail @EmptyTaskName
+  Scenario: Add a new task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
     And body Task/PostNewTaskFail.json
     When execute method POST
     Then the status code should be 400
 
-  Scenario: name repetido
+  @PostAddANewTaskFail @RepeatedTaskName
+  Scenario: Add a new task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
-    And body Task/AddNewTask.json
+    And body Task/UpdateNameTaskFail.json
     When execute method POST
     Then the status code should be 400
 
     #-------------------------------
 
-  @PutUpdateTask @ok
-  Scenario: update tarea
-    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
-    When execute method PUT
-    Then the status code should be 200
-
-  Scenario: error de endpoint
+  @PutUpdateTask @BadEndpoint
+  Scenario: Update task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/
     When execute method PUT
     Then the status code should be 404
 
-  @REVISARHARDCODEO
-  Scenario: sin api key
+  @PutUpdateTask @NoApiKey
+  Scenario: Update task on project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     When execute method PUT
     Then the status code should be 401
 
-
-
-  Scenario: NAME en blanco
+  @PutUpdateTask @EmptyTaskName
+  Scenario: Update task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     And body Task/PostNewTaskFail.json
     When execute method PUT
     Then the status code should be 400
 
-
-  Scenario: NAME repetido
+  @PutUpdateTask @RepeatedTaskName
+  Scenario: Update task on project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
-    And body Task/AddNewTask.json
+    And body Task/UpdateNameTaskFail.json
     When execute method PUT
     Then the status code should be 400
 
+    #--------------------------------
 
-    #------------------------------------------------
-
-  @DeleteTask
-@FAIL
-  Scenario: error de endpoint
+  @DeleteTask @BadEndpoint @oka
+  Scenario: Delete task from project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
+    And endpoint /v1/
     When execute method DELETE
     Then the status code should be 404
 
-  Scenario: metodo errado
+  @DeleteTask @BadMethod
+  Scenario: Delete task from project
     Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     When execute method PATCH
     Then the status code should be 405
 
-  Scenario: sin api key
+  @DeleteTask @NoApiKey
+  Scenario: Delete task from project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     When execute method DELETE
     Then the status code should be 401
 
-
-  Scenario: status "ACTIVE" en vez de "DONE"
-    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
-    And body Task/AddNewTask.json
+  @DeleteTask @BadBodyActive
+  Scenario: Delete task from project
+    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
     When execute method DELETE
     Then the status code should be 400
