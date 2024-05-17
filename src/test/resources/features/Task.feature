@@ -4,10 +4,10 @@ Feature: Task success
   Background:
     And header Content-Type = application/json
     And header Accept = */*
-    And header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And base url https://api.clockify.me/api
-    And call 1-Workspace.feature@GetWokspaces
-    And call 2-Project.feature@GetAllProject
+    And header x-api-key = $(env.x_api_key)
+    And base url $(env.base_url_clockify)
+    And call Workspace.feature@GetWokspaces
+    And call Project.feature@GetAllProjects
 
   Scenario: Get all projects on workspace
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
@@ -18,7 +18,7 @@ Feature: Task success
   @PostAddANewTask
   Scenario: Add a new task on project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
-    And body Task/AddNewTask.json
+    And body jsons/bodies/Task/AddNewTask.json
     When execute method POST
     Then the status code should be 201
 
@@ -32,7 +32,7 @@ Feature: Task success
   @PutUpdateTask
   Scenario: Update task on project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks/{{taskId}}
-    And body Task/Update-deleteTask.json
+    And body jsons/bodies/Task/Update-deleteTask.json
     When execute method PUT
     Then the status code should be 200
 
@@ -45,7 +45,7 @@ Feature: Task success
   @PostAddANewTask
   Scenario: Add a new task on project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}/tasks
-    And body Task/UpdateNameTaskFail.json
+    And body jsons/bodies/Task/UpdateNameTaskFail.json
     When execute method POST
     Then the status code should be 201
 

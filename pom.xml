@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.lippia</groupId>
         <artifactId>root</artifactId>
-        <version>3.3.0.0</version>
+        <version>3.3.0.2</version>
     </parent>
 
     <groupId>com.Crowdar</groupId>
@@ -26,15 +26,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <buidIdetifier>ariadna_garcia_${maven.build.timestamp}</buidIdetifier>
+        <maven.build.timestamp.format>dd-MM-yyyy-HH-mm-ss</maven.build.timestamp.format>
+        <buildIdentifier>Ariadna_Garcia_${maven.build.timestamp}</buildIdentifier>
         <base.api.url>https://clockify.me</base.api.url>
         <cucumber.stepsDefinitions>--glue io/lippia/api/lowcode/steps --glue ar/steps</cucumber.stepsDefinitions>
         <cucumber.hooks>--glue com/crowdar/bdd/cukes --glue ar/apiExampleProject/hook</cucumber.hooks>
-		<cucumber.tags>@Regression</cucumber.tags>
+        <cucumber.tags>@Regression</cucumber.tags>
         <cucumber.reporters>--plugin pretty --plugin ar.reports.CucumberReporter: </cucumber.reporters>
-		<crowdar.cucumber.option>src/test/resources/features ${cucumber.hooks} ${cucumber.stepsDefinitions} --tags 'not @Ignore' --tags ${cucumber.tags} ${cucumber.reporters}</crowdar.cucumber.option>
+        <crowdar.cucumber.option>src/test/resources/features/ ${cucumber.hooks} ${cucumber.stepsDefinitions} --tags 'not @Ignore' --tags ${cucumber.tags} ${cucumber.reporters}</crowdar.cucumber.option>
         <crowdar.projectType>API</crowdar.projectType>
-        <environment></environment>
+        <environment>dev</environment>
     </properties>
 
     <profiles>
@@ -57,9 +58,9 @@
 
     <dependencies>
         <dependency>
-	        <groupId>io.lippia</groupId>
-	        <artifactId>core</artifactId>
-	        <version>3.3.0.0</version>
+            <groupId>io.lippia</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.lippia.report</groupId>
@@ -84,7 +85,7 @@
             <version>1.4.2</version>
         </dependency>
         <dependency>
-             <groupId>com.jayway.jsonpath</groupId>
+            <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <version>2.7.0</version>
         </dependency>
@@ -113,34 +114,42 @@
 
     </dependencies>
     <build>
-        <filters>
-            <filter>src/main/resources/cucumber.properties</filter>
-        </filters>
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>${apiExample.runner}</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-						<LIPPIA_RS_API_HOST>https://rsapi.automation.crowdaronline.com</LIPPIA_RS_API_HOST>
-	                    <LIPPIA_RS_PROJECT_NAME>API Sample</LIPPIA_RS_PROJECT_NAME>
-	                    <LIPPIA_RS_REPORT_NAME>Local - build</LIPPIA_RS_REPORT_NAME>
-                	</systemPropertyVariables>
+                        <LIPPIA_RS_API_HOST>https://rsapi.automation.crowdaronline.com/</LIPPIA_RS_API_HOST>
+                        <LIPPIA_RS_PROJECT_NAME>API Sample</LIPPIA_RS_PROJECT_NAME>
+                        <LIPPIA_RS_REPORT_NAME>Local - build</LIPPIA_RS_REPORT_NAME>
+                        <buildIdentifier>${buildIdentifier}</buildIdentifier>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <repositories>
-		<repository>
-			<id>crowdarRepo</id>
-			<name>crowdar-repository</name>
-			<url>https://nexus-v3-repositories.automation.crowdaronline.com/repository/maven-public/</url>
-		</repository>
-	</repositories>
-    
+        <repository>
+            <id>crowdarRepo</id>
+            <name>crowdar-repository</name>
+            <url>https://nexus-v3-repositories.automation.crowdaronline.com/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
 
 </project>

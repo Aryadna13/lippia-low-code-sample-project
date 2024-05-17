@@ -11,10 +11,10 @@
     <protocol>https</protocol>
 
     <!-- title of the document -->
-    <documentTitle>Crowdar QA - Extent configuration</documentTitle>
+    <documentTitle>Ariadna Garcia CROWDAR ACADEMY</documentTitle>
 
     <!-- report name - displayed at top-nav -->
-    <reportName>Crowdar Core Report - Cucumber Report</reportName>
+    <reportName>Tp5 Core Report - Cucumber Report</reportName>
 
     <!-- global date format override -->  <!-- defaults to yyyy-MM-dd -->
     <dateFormat>yyyy-MM-dd</dateFormat>

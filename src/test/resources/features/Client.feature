@@ -4,9 +4,9 @@ Feature: Client success
   Background:
     And header Content-Type = application/json
     And header Accept = */*
-    And header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And base url https://api.clockify.me/api
-    And call 1-Workspace.feature@GetWokspaces
+    And header x-api-key = $(env.x_api_key)
+    And base url $(env.base_url_clockify)
+    And call Workspace.feature@GetWokspaces
 
 
   @GetFindClients
@@ -18,6 +18,6 @@ Feature: Client success
   @PostAddClients
   Scenario: Add a new client
     Given endpoint /v1/workspaces/{{workspaceId}}/clients
-    And body Client/AddClient.json
+    And body jsons/bodies/Client/AddClient.json
     When execute method POST
     Then the status code should be 201

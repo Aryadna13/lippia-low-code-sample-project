@@ -4,9 +4,9 @@ Feature: Project success
   Background:
     And header Content-Type = application/json
     And header Accept = */*
-    And header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
-    And base url https://api.clockify.me/api
-    And call 1-Workspace.feature@GetWokspaces
+    And header x-api-key = $(env.x_api_key)
+    And base url $(env.base_url_clockify)
+    And call Workspace.feature@GetWokspaces
 
 
   @GetAllProjects
@@ -19,7 +19,7 @@ Feature: Project success
   @PostProject
   Scenario: Add a new project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
-    And body Project/NewprojectBody.json
+    And body jsons/bodies/Project/NewprojectBody.json
     When execute method POST
     Then the status code should be 201
 
@@ -32,14 +32,14 @@ Feature: Project success
   @FindProjectById
   Scenario: Find project by ID
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    And body Project/FindById.json
+    And body jsons/bodies/Project/FindById.json
     When execute method GET
     Then the status code should be 200
 
   @UpdateProject
   Scenario: Update proyecto
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    And body Project/ActualizarProject.json
+    And body jsons/bodies/Project/ActualizarProject.json
     When execute method PUT
     Then the status code should be 200
 

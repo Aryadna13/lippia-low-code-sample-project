@@ -4,25 +4,24 @@ Feature: Workspace Failed
   Background:
     And header Content-Type = application/json
     And header Accept = */*
-    And base url https://api.clockify.me/api
+    And base url $(env.base_url_clockify)
 
-
-  @GetWokspacesFallido
+  @GetWokspacesFallido @BadEndpoint
   Scenario: Falla por mal endpoint
-    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
+    Given header x-api-key = $(env.x_api_key)
     And base url https://api.clockify.me/api
     And endpoint /v1/
     When execute method GET
     Then the status code should be 404
 
-  @GetWokspacesFallido
+  @GetWokspacesFallido @BadMethod
   Scenario: metodo errado
-    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
+    Given header x-api-key = $(env.x_api_key)
     And endpoint /v1/workspaces
     When execute method PATCH
     Then the status code should be 405
 
-  @GetWokspacesFallido
+  @GetWokspacesFallido @NoApiKey
   Scenario: no apikey
     Given endpoint /v1/workspaces
     When execute method PATCH
@@ -32,14 +31,14 @@ Feature: Workspace Failed
 
   @AddWorkspace @BadEndpoint
   Scenario: Add Workspace
-    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
+    Given header x-api-key = $(env.x_api_key)
     And endpoint /v1/
     When execute method POST
     Then the status code should be 404
 
   @AddWorkspace @BadMethod
   Scenario: metodo errado
-    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
+    Given header x-api-key = $(env.x_api_key)
     And endpoint /v1/workspaces
     When execute method PUT
     Then the status code should be 405
@@ -52,7 +51,7 @@ Feature: Workspace Failed
 
   @AddWorkspace  @EmptyWorkspaceName
   Scenario: Post un nuevo workspace sin nombre
-    Given header x-api-key = MTc1YTM3NzMtMmM4YS00NmY1LTg4NGQtZWFiYzE1YjE5ZDUx
+    Given header x-api-key = $(env.x_api_key)
     And endpoint /v1/workspaces
     When execute method POST
     Then the status code should be 400
