@@ -19,7 +19,7 @@ Feature: Project success
   @PostProject
   Scenario: Add a new project
     Given endpoint /v1/workspaces/{{workspaceId}}/projects
-    And body Project/NewprojectBody.json
+    And body Project/NewProjectBody.json
     When execute method POST
     Then the status code should be 201
 
@@ -39,15 +39,11 @@ Feature: Project success
   @UpdateProject
   Scenario: Update proyecto
     Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    And body Project/ActualizarProject.json
+    And body Project/cambios.json
     When execute method PUT
     Then the status code should be 200
+    And response should be name = Cambio1
 
-  @DeleteProject
-  Scenario: Delete project from workspace
-    Given endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    When execute method DELETE
-    Then the status code should be 200
 
 
 

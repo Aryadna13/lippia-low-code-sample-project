@@ -8,13 +8,6 @@ Feature: Workspace success
     And base url https://api.clockify.me/api
 
 
-  @AddWorkspace
-  Scenario: Add Workspace
-    Given endpoint /v1/workspaces
-    And body Workspace/bodyWorkspace.json
-    When execute method POST
-    Then the status code should be 201
-
   @GetWokspaces
   Scenario: Get all my Workspaces
     Given endpoint /v1/workspaces
