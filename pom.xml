@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.lippia</groupId>
         <artifactId>root</artifactId>
-        <version>3.3.0.0</version>
+        <version>3.3.0.2</version>
     </parent>
 
     <groupId>com.Crowdar</groupId>
@@ -27,17 +27,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>dd-MM-yyyy-HH-mm-ss</maven.build.timestamp.format>
-        <buildIdentifier>Ariadna_Garcia${maven.build.timestamp}</buildIdentifier>
+        <buildIdentifier>Ariadna_Garcia_${maven.build.timestamp}</buildIdentifier>
         <base.api.url>https://clockify.me</base.api.url>
         <cucumber.stepsDefinitions>--glue io/lippia/api/lowcode/steps --glue ar/steps</cucumber.stepsDefinitions>
         <cucumber.hooks>--glue com/crowdar/bdd/cukes --glue ar/apiExampleProject/hook</cucumber.hooks>
 		<cucumber.tags>@Regression</cucumber.tags>
         <cucumber.reporters>--plugin pretty --plugin ar.reports.CucumberReporter: </cucumber.reporters>
-		<crowdar.cucumber.option>src/test/resources/features ${cucumber.hooks} ${cucumber.stepsDefinitions} --tags 'not @Ignore' --tags ${cucumber.tags} ${cucumber.reporters}</crowdar.cucumber.option>
+		<crowdar.cucumber.option>src/test/resources/features/ ${cucumber.hooks} ${cucumber.stepsDefinitions} --tags 'not @Ignore' --tags ${cucumber.tags} ${cucumber.reporters}</crowdar.cucumber.option>
         <crowdar.projectType>API</crowdar.projectType>
-        <maven.build.timestamp.format>dd-MM-yyyy-HH-mm-ss</maven.build.timestamp.format>
-        <buildIdentifier>Ariadna_Garcia${maven.build.timestamp}</buildIdentifier>
-        <environment></environment>
+        <environment>dev</environment>
     </properties>
 
     <profiles>
@@ -62,7 +60,7 @@
         <dependency>
 	        <groupId>io.lippia</groupId>
 	        <artifactId>core</artifactId>
-	        <version>3.3.0.0</version>
+	        <version>3.3.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.lippia.report</groupId>
@@ -116,9 +114,16 @@
 
     </dependencies>
     <build>
-        <filters>
-            <filter>src/main/resources/cucumber.properties</filter>
-        </filters>
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
